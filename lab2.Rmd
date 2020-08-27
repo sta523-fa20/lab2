@@ -5,7 +5,7 @@ date: ""
 output: 
   html_document:
     toc: true
-    number_sections: true
+    number_sections: false
     toc_float: true
     df_print: paged
 ---
