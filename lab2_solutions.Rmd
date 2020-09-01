@@ -1,0 +1,116 @@
+---
+title: "Lab 2 Solutions"
+author: ""
+date: ""
+output: 
+  html_document:
+    toc: true
+    number_sections: false
+    toc_float: true
+    df_print: paged
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      comment = "#>", highlight = TRUE,
+                      fig.align = "center")
+```
+
+## Shell command
+
+In this repo is a zip file named `organize_me.zip`. It can by unzipped by
+running `unzip("organize_me.zip")`. Do this in your console so you only unzip
+the folder once and not each time you knit the Rmd file.
+
+The files in `organize_me/` contain a sample of various files you may have if 
+you run a simulation on a high performance computer. Although, they are
+currently disorganized. Organize the contents in `organize_me/` using the 
+command line according to the following steps.
+
+1. delete all `.input2` files.
+2. remove the `flags/` directory and all of its contents.
+3. place the test data text files in a directory named `test_data/`.
+4. place the `.sh` files in a directory named `scripts_shell/`.
+5. place the `.R` files in a directory named `scripts_R/`.
+6. place the `.qsub` files in a directory named `hpc_start/`.
+7. copy directory `organize_me/` and name the copy `simulations/`.
+8. delete directory `organize_me/` and all of its contents.
+
+```{bash eval=FALSE}
+# assuming you are in organize_me/
+rm *.input2
+
+rm -rf flags/
+
+mkdir test-data/
+mv testdata*.txt test-data/
+
+mkdir shell-scripts/
+mv *.sh shell-scripts/
+
+mkdir R-scripts/
+mv *.R R-scripts/
+
+mkdir hpc-run/
+mv *.qsub hpc-run/
+
+cd ../
+cp organize_me/ simulation/
+
+rm -rf organize_me/
+```
+
+
+## Attributes
+
+Create a date-time object based on the atomic double vector below. You'll
+need to set the class attribute to `"POSIXct"`
+
+```{r}
+z <- seq(0, 3600 * 10, by = 3600)
+```
+
+```{r}
+attr(z, which = "class") <- "POSIXct"
+z
+```
+
+
+What do you notice about the date-time? If you are unsure, check out
+Unix Epoch.
+
+## Subsetting
+
+Consider the atomic vector `x`.
+
+```{r}
+set.seed(0826) # set seed to ensure reproducibility
+x <- sample(x = c(letters, -15:15), size = 50, replace = TRUE)
+x
+```
+
+1. subset only the letters from `x`.
+
+```{r}
+x[x %in% letters]
+```
+
+2. subset only the negative numbers from `x`.
+
+```{r}
+y <- as.numeric(x)
+x[y < 0 & !is.na(y)]
+```
+
+3. select the numbers divisible by 3 from `x`.
+
+```{r}
+x[as.numeric(x) %% 3 == 0 & !is.na(y)]
+```
+
+4. remove all values with an even index from `x`.
+
+```{r}
+x[-2 * (1:(length(x) / 2))]
+```
+
